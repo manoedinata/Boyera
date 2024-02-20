@@ -1,7 +1,8 @@
 from flask import Flask
 
-from boyera.database import db
 from boyera.config import config
+from boyera.database import db
+from boyera.database import migrate
 
 from boyera.routes import routes_home
 
@@ -14,6 +15,7 @@ def create_app() -> Flask:
     # Database (Flask-SQLAlchemy)
     app.config["SQLALCHEMY_DATABASE_URI"] = app.config["MYSQL_URL"]
     db.init_app(app)
+    migrate.init_app(app)
 
     # Routes registration
     ## Frontend (Web UI)
