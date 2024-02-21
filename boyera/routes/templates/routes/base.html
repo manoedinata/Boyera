@@ -195,12 +195,18 @@
               >
                 <span class="avatar avatar-sm"></span>
                 <div class="d-none d-xl-block ps-2">
-                  <div>Hendra Manudinata</div>
-                  <div class="mt-1 small text-muted">Siswa</div>
+                  <div>{{ current_user.nama }}</div>
+                  <div class="mt-1 small text-muted">
+                    Siswa - {{ current_user.kelas }}
+                  </div>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                <a
+                  href="{{ url_for('routes_auth.logout' ) }}"
+                  class="dropdown-item"
+                  >Logout</a
+                >
               </div>
             </div>
           </div>
@@ -249,7 +255,7 @@
               <div class="col">
                 <!-- Page pre-title -->
                 <div class="page-pretitle">Sugeng Rawuh,</div>
-                <h2 class="page-title">Hendra Manudinata</h2>
+                <h2 class="page-title">{{ current_user.nama }}</h2>
               </div>
             </div>
           </div>
