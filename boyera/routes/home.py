@@ -8,4 +8,4 @@ routes_home = Blueprint("routes_home", __name__, template_folder="templates", ur
 @routes_home.get("/")
 @login_required
 def home():
-    return render_template("routes/base.html")
+    return render_template("routes/home.html")

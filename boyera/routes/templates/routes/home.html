@@ -1,0 +1,39 @@
+{% extends 'routes/base.html' %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+{% block content %}
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Sugeng Rawuh,</div>
+          <h2 class="page-title">{{ current_user.nama }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl d-flex flex-column justify-content-center">
+      <div class="empty">
+        <div class="empty-img">
+          <img
+            src="./static/illustrations/undraw_printing_invoices_5r4r.svg"
+            height="128"
+            alt=""
+          />
+        </div>
+        <p class="empty-title">Kosong, Nih!</p>
+        <p class="empty-subtitle text-muted">
+          Untuk saat ini <strong>Boyera</strong> masih belum ada fitur. Tunggu
+          update, ya!
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
