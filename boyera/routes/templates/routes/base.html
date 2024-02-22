@@ -210,6 +210,23 @@
         {% include 'routes/includes/footer.html' %}
       </div>
     </div>
+    <!-- Dynamic navbar highlight -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var path = window.location.pathname;
+        console.log(path);
+        $('li.nav-item a[href="' + path + '"]')
+          .parent()
+          .addClass("active");
+        $("li.nav-item a")
+          .parent()
+          .filter(function () {
+            return this.href == path;
+          })
+          .addClass("active");
+      });
+    </script>
+
     <!-- Tabler Core -->
     <script
       src="{{ url_for('static', filename='js/tabler.js' ) }}"
