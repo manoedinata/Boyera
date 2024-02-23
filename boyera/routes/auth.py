@@ -9,7 +9,12 @@ from flask_login import current_user
 from flask_login import login_user
 from flask_login import logout_user
 
-from boyera.utils import getSiswaByNis
+from boyera.auth import oauth
+from authlib.jose.errors import InvalidTokenError
+from boyera.database import Siswa
+from boyera.utils import getSiswaByEmail
+from boyera.utils import addSiswa
+import time
 
 routes_auth = Blueprint("routes_auth", __name__, template_folder="templates", url_prefix="/")
 
@@ -21,13 +26,21 @@ def login():
     return render_template("routes/login.html")
 
 @routes_auth.post("/login")
-def process_login():
-    nis = request.form.get("nis")
-    siswa = getSiswaByNis(nis)
+def redirect_login():
+    redirect_uri = url_for("routes_auth.auth_callback", _external=True)
+    return oauth.smaboy.authorize_redirect(redirect_uri)
 
-    if not siswa:
-        flash("Akun tidak ditemukan! Cek kembali NIS Anda.", "danger")
-        return redirect(url_for("routes_auth.login"))
+@routes_auth.route("/auth")
+def auth_callback():
+    token = oauth.smaboy.authorize_access_token()
+
+    siswa = Siswa()
+    siswa.from_userinfo_callback(token["userinfo"])
+
+    # cek apakah siswa sdh ada di db
+    siswaAda = getSiswaByEmail(token["userinfo"]["preferred_username"])
+    if not siswaAda:
+        addSiswa(siswa)
 
     login_user(siswa, remember=True)
     return redirect(url_for("routes_home.home"))

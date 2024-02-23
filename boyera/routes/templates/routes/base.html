@@ -154,7 +154,12 @@
                 <div class="d-none d-xl-block ps-2">
                   <div>{{ current_user.nama }}</div>
                   <div class="mt-1 small text-muted">
-                    Siswa - {{ current_user.kelas }}
+                    {{ current_user.role }} -
+                    {% if current_user.kelas %}
+                      {{ current_user.kelas }}
+                    {% else %}
+                      Kelas Belum Diatur
+                    {% endif %}
                   </div>
                 </div>
               </a>

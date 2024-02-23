@@ -1,2 +1,2 @@
-from .siswa import getSiswaByNis
+from .siswa import getSiswaByEmail
 from .siswa import addSiswa

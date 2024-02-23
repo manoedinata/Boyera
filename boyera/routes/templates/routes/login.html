@@ -9,9 +9,9 @@
             ><img src="./static/logo.png" height="90" alt=""
           /></a>
         </div>
-        <div class="card card-md">
+        <div class="card card-md mb-4">
           <div class="card-body">
-            <h2 class="h2 text-center mb-4">Login dulu, yuk!</h2>
+            <h2 class="h2 text-center mb-4">Login dulu, ya!</h2>
 
             {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}
               {% for category, message in messages %}
@@ -29,26 +29,68 @@
               {% endfor %}
             {% endif %}{% endwith %}
 
+            <p>
+              Untuk mengakses Boyera, silahkan <i>login</i> menggunakan akun
+              sekolah (@sman1boyolangu.sch.id).
+            </p>
+
             <form
-              action="{{ url_for('routes_auth.process_login' ) }}"
+              action="{{ url_for('routes_auth.redirect_login' ) }}"
               method="post"
             >
-              <div class="mb-3">
-                <label class="form-label">Nomor Induk Siswa (NIS)</label>
-                <input
-                  type="number"
-                  name="nis"
-                  class="form-control"
-                  placeholder="12345"
-                  required
-                />
-              </div>
-              <div class="form-footer">
-                <button type="submit" class="btn btn-success w-100">
-                  Login
+              <div>
+                <button
+                  type="submit"
+                  role="button"
+                  class="btn btn-success w-100"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-brand-azure"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M6 7.5l-4 9.5h4l6 -15z" />
+                    <path d="M22 20l-7 -15l-3 7l4 5l-8 3z" />
+                  </svg>
+                  Login dengan akun SMABOY
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div class="accordion" id="faq-login">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-1">
+              <button
+                class="accordion-button "
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-1"
+                aria-expanded="true"
+              >
+                Kenapa pakai akun sekolah?
+              </button>
+            </h2>
+            <div
+              id="collapse-1"
+              class="accordion-collapse collapse show"
+              data-bs-parent="#faq-login"
+            >
+              <div class="accordion-body pt-0">
+                Dengan menggunakan akun sekolah, Boyera dapat lebih
+                diintegrasikan dengan layanan sekolah & Microsoft, serta
+                memastikan bahwa hanya siswa SMABOY yang dapat mengakses Boyera.
+              </div>
+            </div>
           </div>
         </div>
       </div>
