@@ -17,10 +17,13 @@ else:
     SSO_CLIENT_ID = env.get("SSO_CLIENT_ID")
     SSO_CLIENT_SECRET = env.get("SSO_CLIENT_SECRET")
 
+SSO_OPENID_CONFIG = f"https://login.microsoftonline.com/{SSO_TENANT}/v2.0/.well-known/openid-configuration"
+
 config = {
     "SECRET_KEY": SECRET_KEY,
     "MYSQL_URL": MYSQL_URL,
     "SSO_TENANT": SSO_TENANT,
     "SSO_CLIENT_ID": SSO_CLIENT_ID,
-    "SSO_CLIENT_SECRET": SSO_CLIENT_SECRET
+    "SSO_CLIENT_SECRET": SSO_CLIENT_SECRET,
+    "SSO_OPENID_CONFIG": SSO_OPENID_CONFIG
 }

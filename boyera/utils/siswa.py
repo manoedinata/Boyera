@@ -1,11 +1,21 @@
 from boyera.database import db
 from boyera.database import Siswa
 
-def getSiswaByEmail(email: str) -> Siswa:
-    siswa = Siswa.query.filter_by(email=email).first()
+def getSiswaByUid(uid: str) -> Siswa:
+    siswa = Siswa.query.filter_by(uid=uid).first()
 
     return siswa
 
-def addSiswa(siswa: Siswa):
+def addSiswa(siswa: Siswa) -> Siswa:
     db.session.add(siswa)
     db.session.commit()
+
+    return siswa
+
+def editSiswa(siswa: Siswa, nama: str, email: str) -> Siswa:
+    siswa.nama = nama
+    siswa.email = email
+
+    db.session.commit()
+
+    return siswa
