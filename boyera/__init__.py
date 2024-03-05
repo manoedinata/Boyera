@@ -6,9 +6,6 @@ from boyera.database import migrate
 
 from boyera.auth import login_manager
 
-from boyera.routes import routes_home
-from boyera.routes import routes_auth
-
 def create_app() -> Flask:
     app = Flask(__name__)
 
@@ -22,7 +19,9 @@ def create_app() -> Flask:
 
     # Routes registration
     ## Frontend (Web UI)
+    from boyera.routes.home import routes_home
     app.register_blueprint(routes_home)
+    from boyera.routes.auth import routes_auth
     app.register_blueprint(routes_auth)
 
     # Login manager (Flask-Login)
