@@ -87,9 +87,7 @@ def auth_callback():
 
     # cek apakah siswa sdh ada di db
     siswa = getSiswaByUid(uid)
-    if siswa:
-        siswa = editSiswa(siswa, nama=nama, email=email, picture=picture)
-    else:
+    if not siswa:
         siswa = Siswa(uid=uid, nama=nama, email=email, picture=picture)
         addSiswa(siswa)
 

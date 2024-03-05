@@ -23,6 +23,8 @@ def create_app() -> Flask:
     app.register_blueprint(routes_home)
     from boyera.routes.auth import routes_auth
     app.register_blueprint(routes_auth)
+    from boyera.routes.profile import routes_profile
+    app.register_blueprint(routes_profile)
 
     # Login manager (Flask-Login)
     login_manager.init_app(app)
