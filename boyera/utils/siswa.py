@@ -1,5 +1,5 @@
-from boyera.database import db
-from boyera.database import Siswa
+from boyera.models.siswa import db
+from boyera.models.siswa import Siswa
 
 def getSiswaByUid(uid: str) -> Siswa:
     siswa = Siswa.query.filter_by(uid=uid).first()

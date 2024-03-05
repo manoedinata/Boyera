@@ -14,7 +14,7 @@ from oauthlib.oauth2 import WebApplicationClient
 import requests
 import json
 
-from boyera.database import Siswa
+from boyera.models.siswa import Siswa
 from boyera.utils.siswa import getSiswaByUid
 from boyera.utils.siswa import addSiswa
 from boyera.utils.siswa import editSiswa
