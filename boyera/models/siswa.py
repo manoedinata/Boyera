@@ -41,14 +41,8 @@ class Siswa(UserMixin, db.Model):
     @property
     def serialize(self):
         """Return object data in easily serializable format"""
-        """https://stackoverflow.com/a/7103486"""
-        return {
-            "id": self.id,
-            "uid": self.uid,
-            "nama": self.nama,
-            "email": self.email,
-            "role": self.role
-        }
+        """https://stackoverflow.com/a/11884806"""
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def __repr__(self):
         return f"<Siswa {self.nama}>"
