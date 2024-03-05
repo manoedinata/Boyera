@@ -15,5 +15,6 @@ def load_user(user_id):
 
     if siswa:
         siswa.access_token = session.get("access_token")
+        siswa.expires_in = session.get("expires_in")
 
     return siswa

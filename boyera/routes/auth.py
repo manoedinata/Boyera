@@ -20,6 +20,7 @@ from boyera.database import Siswa
 from boyera.utils.siswa import getSiswaByUid
 from boyera.utils.siswa import addSiswa
 from boyera.utils.siswa import editSiswa
+from boyera.utils.datetime import addTimeBySeconds
 
 from boyera.config import SSO_CLIENT_ID
 from boyera.config import SSO_CLIENT_SECRET
@@ -85,27 +86,41 @@ def auth_callback():
     uri, headers, body = oauth_client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body).json()
 
+    # Get user picture
+    picture_endpoint = userinfo_response["picture"]
+    uri, headers, body = oauth_client.add_token(picture_endpoint)
+    picture_response = requests.get(uri, headers=headers, data=body)
+
     # Parse userinfo data
     uid = userinfo_response["sub"]
     email = userinfo_response["email"]
     nama = userinfo_response["name"]
+    picture = picture_response.content
 
     # cek apakah siswa sdh ada di db
     siswa = getSiswaByUid(uid)
     if siswa:
-        siswa = editSiswa(siswa, nama=nama, email=email)
+        siswa = editSiswa(siswa, nama=nama, email=email, picture=picture)
     else:
-        siswa = Siswa(uid=uid, nama=nama, email=email)
+        siswa = Siswa(uid=uid, nama=nama, email=email, picture=picture)
         addSiswa(siswa)
 
+    # Get token expiration
+    tokenExpire = addTimeBySeconds(token_response["expires_in"])
+
     session["access_token"] = oauth_client.access_token
+    session["expires_in"] = tokenExpire
     login_user(siswa, remember=True)
 
     return redirect(url_for("routes_home.home"))
 
 @routes_auth.get("/logout")
 def logout():
-    session.pop("access_token")
+    if session.get("access_token"):
+        session.pop("access_token")
+    if session.get("expires_in"):
+        session.pop("expires_in")
+
     logout_user()
 
     flash("Berhasil logout!", "success")

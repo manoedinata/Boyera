@@ -12,9 +12,10 @@ def addSiswa(siswa: Siswa) -> Siswa:
 
     return siswa
 
-def editSiswa(siswa: Siswa, nama: str, email: str) -> Siswa:
+def editSiswa(siswa: Siswa, nama: str, email: str, picture) -> Siswa:
     siswa.nama = nama
     siswa.email = email
+    siswa.picture = picture
 
     db.session.commit()
 
