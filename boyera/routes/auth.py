@@ -10,11 +10,9 @@ from flask_login import current_user
 from flask_login import login_user
 from flask_login import logout_user
 
+from oauthlib.oauth2 import WebApplicationClient
 import requests
 import json
-
-from oauthlib.oauth2 import WebApplicationClient
-from boyera.utils.auth import get_provider_cfg
 
 from boyera.database import Siswa
 from boyera.utils.siswa import getSiswaByUid
@@ -24,6 +22,9 @@ from boyera.utils.datetime import addTimeBySeconds
 
 from boyera.config import SSO_CLIENT_ID
 from boyera.config import SSO_CLIENT_SECRET
+from boyera.config import SSO_AUTHORIZE_ENDPOINT
+from boyera.config import SSO_TOKEN_ENDPOINT
+from boyera.config import SSO_USERINFO_ENDPOINT
 
 routes_auth = Blueprint("routes_auth", __name__, template_folder="templates", url_prefix="/")
 
@@ -39,13 +40,10 @@ def redirect_login():
     # OAuth client
     oauth_client = WebApplicationClient(SSO_CLIENT_ID)
 
-    provider_cfg = get_provider_cfg()
-    authorization_endpoint = provider_cfg["authorization_endpoint"]
-
     # Use library to construct the request for Microsoft login and provide
     # scopes that let you retrieve user's profile from Microsoft
     request_uri = oauth_client.prepare_request_uri(
-        authorization_endpoint,
+        SSO_AUTHORIZE_ENDPOINT,
         redirect_uri=url_for("routes_auth.auth_callback", _external=True),
         scope=["openid", "profile", "email", "User.Read"],
     )
@@ -59,14 +57,9 @@ def auth_callback():
     # Get authorization code Microsoft sent back
     code = request.args.get("code")
 
-    # Find out what URL to hit to get tokens that allow you to ask for
-    # things on behalf of a user
-    provider_cfg = get_provider_cfg()
-    token_endpoint = provider_cfg["token_endpoint"]
-
     # Prepare and send a request to get tokens! Yay tokens!
     token_url, headers, body = oauth_client.prepare_token_request(
-        token_endpoint,
+        SSO_TOKEN_ENDPOINT,
         authorization_response=request.url,
         redirect_url=request.base_url,
         code=code
@@ -82,8 +75,7 @@ def auth_callback():
     oauth_client.parse_request_body_response(json.dumps(token_response))
 
     # Now that we have tokens let's retrieve user's profile information
-    userinfo_endpoint = provider_cfg["userinfo_endpoint"]
-    uri, headers, body = oauth_client.add_token(userinfo_endpoint)
+    uri, headers, body = oauth_client.add_token(SSO_USERINFO_ENDPOINT)
     userinfo_response = requests.get(uri, headers=headers, data=body).json()
 
     # Get user picture
