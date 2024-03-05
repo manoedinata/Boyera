@@ -1,6 +1,6 @@
 from flask import Flask
 
-from boyera.config import config
+from boyera import config
 from boyera.database import db
 from boyera.database import migrate
 
@@ -13,11 +13,10 @@ def create_app() -> Flask:
     app = Flask(__name__)
 
     # Configurations
-    app.config.update(**config)
-    app.secret_key = app.config["SECRET_KEY"]
+    app.secret_key = config.SECRET_KEY
 
     # Database (Flask-SQLAlchemy)
-    app.config["SQLALCHEMY_DATABASE_URI"] = app.config["MYSQL_URL"]
+    app.config["SQLALCHEMY_DATABASE_URI"] = config.MYSQL_URL
     db.init_app(app)
     migrate.init_app(app)
 
