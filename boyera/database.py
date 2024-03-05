@@ -52,7 +52,6 @@ class Siswa(UserMixin, db.Model):
             "uid": self.uid,
             "nama": self.nama,
             "email": self.email,
-            "picture": b64encode(self.picture).decode() if self.picture else None,
             "role": self.role
         }
 
