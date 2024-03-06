@@ -3,6 +3,7 @@ from flask import render_template
 from flask import redirect
 from flask import url_for
 from flask import flash
+from flask import request
 
 from flask_login import login_required
 from flask_login import current_user
@@ -12,6 +13,8 @@ from oauthlib.oauth2 import WebApplicationClient
 
 from boyera import config
 from boyera.utils.siswa import editSiswa
+from boyera.utils.kelas import getJenjang
+from boyera.utils.kelas import editKelas
 
 routes_profile = Blueprint("routes_profile", __name__, template_folder="templates", url_prefix="/profil")
 
@@ -19,6 +22,20 @@ routes_profile = Blueprint("routes_profile", __name__, template_folder="template
 @login_required
 def profile():
     return render_template("routes/profile/profile.html")
+
+@routes_profile.get("/kelas")
+@login_required
+def kelas():
+    jenjang = getJenjang()
+    return render_template("routes/profile/kelas.html", jenjang=jenjang)
+
+@routes_profile.post("/kelas")
+@login_required
+def edit_kelas():
+    kelas = request.form.get("kelas")
+    editKelas(current_user, kelas)
+
+    return redirect(url_for("routes_profile.kelas"))
 
 @routes_profile.get("/sinkronisasi")
 @login_required

@@ -166,7 +166,7 @@
                   <div class="mt-1 small text-muted">
                     {{ current_user.role }} -
                     {% if current_user.kelas %}
-                      {{ current_user.kelas }}
+                      {{ current_user.kelas.kelas }}
                     {% else %}
                       Kelas Belum Diatur
                     {% endif %}

@@ -1,0 +1,70 @@
+{% extends 'routes/base.html' %}
+
+{% block title %}
+  Kelas
+{% endblock %}
+
+{% block content %}
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">Profil Saya</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="card">
+        <div class="row g-0">
+          {% include 'routes/profile/includes/sidebar.html' %}
+
+          <div class="col-12 col-md-9 d-flex flex-column">
+            <form
+              action="{{ url_for('routes_profile.edit_kelas' ) }}"
+              method="post"
+            >
+              <div class="card-body">
+                <h2 class="mb-4">Kelas</h2>
+
+                <div class="row g-3 mt-3">
+                  <div class="col-md">
+                    <select name="kelas" class="form-select" required>
+                      <option value="">Pilih...</option>
+                      {% for j in jenjang %}
+                        <optgroup label="Kelas {{ j.jenjang }}">
+                          {% for k in j.kelas %}
+                            <option
+                              value="{{ k.kelas }}"
+                              {% if k.kelas == current_user.kelas.kelas %}
+                                selected
+                              {% endif %}
+                            >
+                              {{ k.kelas }}
+                            </option>
+                          {% endfor %}
+                        </optgroup>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent mt-auto">
+                <div class="btn-list justify-content-end">
+                  <a href="{{ url_for('routes_home.home' ) }}" class="btn">
+                    Kembali
+                  </a>
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

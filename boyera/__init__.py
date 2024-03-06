@@ -17,6 +17,10 @@ def create_app() -> Flask:
     db.init_app(app)
     migrate.init_app(app)
 
+    # These need to be imported for Alembic migration
+    from boyera.models.kelas import Jenjang, Kelas
+    from boyera.models.siswa import Siswa
+
     # Routes registration
     ## Frontend (Web UI)
     from boyera.routes.home import routes_home

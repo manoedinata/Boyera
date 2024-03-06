@@ -9,11 +9,13 @@ from boyera.utils.datetime import getCurrentTime
 
 class Siswa(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    uid = db.Column(db.Integer, nullable=False, unique=False)
+    uid = db.Column(db.String(200), nullable=False, unique=False)
     nama = db.Column(db.String(1000), nullable=False, unique=False)
     email = db.Column(db.String(1000), nullable=False, unique=True)
     picture = db.Column(db.BLOB, nullable=True, unique=False)
     role = db.Column(db.String(100), nullable=True, unique=False, default="Siswa")
+
+    kelas_id = db.Column(db.Integer, db.ForeignKey("kelas.id"))
 
     def getPicture(self):
         if not self.picture:
