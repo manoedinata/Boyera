@@ -20,6 +20,7 @@ class Kelas(db.Model):
     kelas = db.Column(db.String(100), nullable=False, unique=True)
     jenjang_id = db.Column(db.Integer, db.ForeignKey("jenjang.id"))
     siswa = db.relationship("Siswa", backref="kelas")
+    jadwal = db.relationship("Jadwal", backref="kelas")
 
     @property
     def serialize(self):

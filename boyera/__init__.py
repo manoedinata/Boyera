@@ -27,6 +27,8 @@ def create_app() -> Flask:
     # These need to be imported for Alembic migration
     from boyera.models.kelas import Jenjang, Kelas
     from boyera.models.siswa import Siswa, SiswaOAuth
+    from boyera.models.guru import Guru
+    from boyera.models.jadwal import Jadwal
 
     # Routes registration
     ## Frontend (Web UI)
@@ -38,6 +40,8 @@ def create_app() -> Flask:
     app.register_blueprint(routes_dance, url_prefix="/oauth")
     from boyera.routes.profile import routes_profile
     app.register_blueprint(routes_profile)
+    from boyera.routes.jadwal import routes_jadwal
+    app.register_blueprint(routes_jadwal)
 
     # Login manager (Flask-Login)
     login_manager.init_app(app)

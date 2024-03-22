@@ -1,0 +1,145 @@
+{% extends 'routes/base.html' %}
+
+{% block title %}
+  Jadwal
+{% endblock %}
+
+{% block content %}
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">Informasi</div>
+          <h2 class="page-title">Jadwal Pelajaran</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl d-flex flex-column justify-content-center">
+      <div id="progress" class="mb-3">
+        <div class="progress">
+          <div class="progress-bar progress-bar-indeterminate bg-green"></div>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="row align-items-top">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center">
+                Jadwal Kelas: <strong>{{ kelasName }}</strong>
+              </h5>
+              <p><i>* Sentuh mapel untuk mengetahui nama guru</i></p>
+              <div class="table-responsive">
+                <table class="table table-striped text-center">
+                  <thead id="jadwalKeterangan" class="table-light">
+                    <tr>
+                      <th scope="col">Jam Ke-</th>
+                      <th scope="col">Senin</th>
+                      <th scope="col">Selasa</th>
+                      <th scope="col">Rabu</th>
+                      <th scope="col">Kamis</th>
+                      <th scope="col">Jumat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="jadwalIsi">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr id="istirahat">
+                      <td colspan="6"><strong>ISTIRAHAT</strong></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">6</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr id="istirahat">
+                      <td colspan="6"><strong>ISTIRAHAT</strong></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">7</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">8</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">9</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}
