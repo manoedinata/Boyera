@@ -13,7 +13,7 @@ from oauthlib.oauth2 import WebApplicationClient
 
 from boyera import config
 from boyera.utils.siswa import editSiswa
-from boyera.utils.kelas import getJenjang
+from boyera.utils.jenjang import getJenjang
 from boyera.utils.kelas import editKelas
 
 routes_profile = Blueprint("routes_profile", __name__, template_folder="templates", url_prefix="/profil")

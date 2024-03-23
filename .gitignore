@@ -161,3 +161,6 @@ cython_debug/
 
 # Node modules
 node_modules/
+
+# Boyera internal data
+insert_data.py

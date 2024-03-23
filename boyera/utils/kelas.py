@@ -1,5 +1,5 @@
 from boyera.database import db
-from boyera.models.kelas import Jenjang, Kelas
+from boyera.models.kelas import Kelas
 from boyera.models.siswa import Siswa
 
 def getKelas():
@@ -7,10 +7,16 @@ def getKelas():
 
     return [k for k in kelas]
 
-def getJenjang():
-    jenjang = Jenjang.query.all()
+def addKelas(kelas: str, jenjang_id: int):
+    cek = Kelas.query.filter_by(kelas=kelas).first()
+    if cek:
+        return cek
 
-    return [j for j in jenjang]
+    add = Kelas(kelas=kelas, jenjang_id=jenjang_id)
+    db.session.add(add)
+    db.session.commit()
+
+    return add
 
 def editKelas(siswa: Siswa, kelas: str) -> Siswa:
     kelas = Kelas.query.filter_by(kelas=kelas).first()
