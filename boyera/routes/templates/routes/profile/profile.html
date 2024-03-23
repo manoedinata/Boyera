@@ -35,8 +35,6 @@
                     {% if current_user.picture %}
                       style="background-image:
                       url('data:image/gif;base64,{{ current_user.getPicture() }}');"
-                    {% else %}
-                      style="background-image: url(./static/avatars/000m.jpg)">
                     {% endif %}
                   ></span>
                 </div>

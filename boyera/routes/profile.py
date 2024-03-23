@@ -8,8 +8,7 @@ from flask import request
 from flask_login import login_required
 from flask_login import current_user
 
-import requests
-from oauthlib.oauth2 import WebApplicationClient
+from flask_dance.contrib.azure import azure
 
 from boyera import config
 from boyera.utils.siswa import editSiswa
@@ -40,19 +39,11 @@ def edit_kelas():
 @routes_profile.get("/sinkronisasi")
 @login_required
 def sync_profile():
-    oauth_client = WebApplicationClient(config.SSO_CLIENT_ID, access_token=current_user.access_token)
-
-    # Now that we have tokens let's retrieve user's profile information
-    uri, headers, body = oauth_client.add_token(config.SSO_USERINFO_ENDPOINT)
-    userinfo_response = requests.get(uri, headers=headers, data=body).json()
-
     # Get user picture
-    picture_endpoint = userinfo_response["picture"]
-    uri, headers, body = oauth_client.add_token(picture_endpoint)
-    picture_response = requests.get(uri, headers=headers, data=body)
+    userinfo_response = azure.get(config.SSO_USERINFO_ENDPOINT).json()
+    picture_response = azure.get(config.SSO_PICTURE_ENDPOINT)
 
     # Parse userinfo data
-    uid = userinfo_response["sub"]
     email = userinfo_response["email"]
     nama = userinfo_response["name"]
     picture = picture_response.content

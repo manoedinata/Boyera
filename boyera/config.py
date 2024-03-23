@@ -20,3 +20,4 @@ else:
 SSO_AUTHORIZE_ENDPOINT = f"https://login.microsoftonline.com/{SSO_TENANT}/oauth2/v2.0/authorize"
 SSO_TOKEN_ENDPOINT = f"https://login.microsoftonline.com/{SSO_TENANT}/oauth2/v2.0/token"
 SSO_USERINFO_ENDPOINT = "https://graph.microsoft.com/oidc/userinfo"
+SSO_PICTURE_ENDPOINT = "https://graph.microsoft.com/v1.0/me/photo/$value"

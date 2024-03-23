@@ -1,11 +1,10 @@
-from flask import session
-
 from flask_login import UserMixin
+
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
 
 from base64 import b64encode
 
 from boyera.database import db
-from boyera.utils.datetime import getCurrentTime
 
 class Siswa(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,19 +22,6 @@ class Siswa(UserMixin, db.Model):
 
         return b64encode(self.picture).decode()
 
-    # Override UserMixin `is_active()`
-    @property
-    def is_active(self):
-        if not (session.get("access_token") and session.get("expires_in")):
-            return False
-
-        # Cek apakah token masih valid
-        currentDate = getCurrentTime()
-        if session.get("expires_in") < currentDate:
-            return False
-
-        return True
-
     # Override UserMixin `get_id()`
     def get_id(self):
         return str(self.uid)
@@ -48,3 +34,8 @@ class Siswa(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<Siswa {self.nama}>"
+
+class SiswaOAuth(OAuthConsumerMixin, db.Model):
+    provider_siswa_id = db.Column(db.String(256), unique=True, nullable=False)
+    siswa_id = db.Column(db.Integer, db.ForeignKey(Siswa.id))
+    siswa = db.relationship(Siswa)
