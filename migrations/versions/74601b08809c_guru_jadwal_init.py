@@ -1,8 +1,8 @@
 """Guru, Jadwal: Init
 
-Revision ID: ebaed3e4199f
-Revises: 9476380de8a6
-Create Date: 2024-03-06 09:01:20.858422
+Revision ID: 74601b08809c
+Revises: 0d93802e51aa
+Create Date: 2024-03-23 23:26:55.625569
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ebaed3e4199f'
-down_revision = '9476380de8a6'
+revision = '74601b08809c'
+down_revision = '0d93802e51aa'
 branch_labels = None
 depends_on = None
 
